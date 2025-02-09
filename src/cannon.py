@@ -1,3 +1,5 @@
+import math
+
 import pygame
 from pygame import Surface
 
@@ -12,7 +14,13 @@ class Cannon:
     WHEEL_WIDTH = 30
 
 
-    def __init__(self, screen: Surface, x: int, y: int, barrel: Barrel):
+    def __init__(
+        self, 
+        screen: Surface, 
+        x: int, 
+        y: int, 
+        barrel: Barrel
+    ):
         """Start pos of cannon base"""
         self.x = x
         self.y = y
@@ -25,11 +33,15 @@ class Cannon:
         pygame.draw.rect(self.screen, 
                          GREY, 
                          (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT))
+        # Arc
+        # pygame.draw.arc(self.screen, GREY, (self.x, self.y - 20, 60, 40), 0, math.pi, 5)
+        pygame.draw.ellipse(self.screen, GREY, (self.x, self.y - 15, 60, 30))
         # Wheel
         pygame.draw.circle(self.screen, 
                            DARK_GREY, 
                            (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH), 
                            self.WHEEL_RAD)
+
     
     def draw(self):
         """Draw the current cannon with barrel"""
