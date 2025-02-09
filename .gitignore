@@ -1,1 +1,9 @@
+# Virtual Env
 /env
+.env
+
+# Python
+*/__pycache__/*
+
+# Mac
+.DS_Store
