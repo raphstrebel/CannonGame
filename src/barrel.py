@@ -16,6 +16,7 @@ class Barrel:
         self.screen = screen
 
     def draw(self):
+        """Draw the barrel depending on the mouse position"""
         # Get mouse position and calculate angle
         mouse_x, mouse_y = pygame.mouse.get_pos()
         angle = math.atan2(mouse_y - (self.y + 15), mouse_x - (self.x + 30))

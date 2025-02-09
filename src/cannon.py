@@ -8,8 +8,8 @@ class Cannon:
 
     BASE_WIDTH = 60
     BASE_HEIGHT = 30
-    WHEEL_RAD = 30
-    WHEEL_WIDTH = 20
+    WHEEL_RAD = 20
+    WHEEL_WIDTH = 30
 
 
     def __init__(self, screen: Surface, x: int, y: int, barrel: Barrel):
@@ -22,11 +22,14 @@ class Cannon:
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
         # Base rectangle
-        pygame.draw.rect(self.screen, GREY, 
+        pygame.draw.rect(self.screen, 
+                         GREY, 
                          (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT))
         # Wheel
-        pygame.draw.circle(self.screen, DARK_GREY, 
-                           (self.x + self.WHEEL_RAD, self.y + self.WHEEL_RAD), self.WHEEL_WIDTH)
+        pygame.draw.circle(self.screen, 
+                           DARK_GREY, 
+                           (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH), 
+                           self.WHEEL_RAD)
     
     def draw(self):
         """Draw the current cannon with barrel"""
