@@ -37,8 +37,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            # cannon_left.shoot()
-            cannon_left.shoot(screen)
+            cannon_left.shoot()
 
     for ball in cannon_left.cannonballs:
         ball.update_pos()
@@ -46,14 +45,6 @@ while running:
         # Remove cannonball if it goes off-screen
         if not ball.is_in_screen():
             cannon_left.cannonballs.remove(ball)
-        # ball[0][0] += ball[1][0]  # Update x position
-        # ball[0][1] += ball[1][1]  # Update y position
-        # ball[1][1] += ball[2]  # Apply gravity (increases downward velocity)
-        # pygame.draw.circle(screen, DARK_GREY, (int(ball[0][0]), int(ball[0][1])), BALL_RADIUS)
-
-        # Remove cannonball if it goes off-screen
-        # if ball[0][0] > DISPLAY_WIDTH or ball[0][0] < 0 or ball[0][1] > DISPLAY_HEIGHT or ball[0][1] < 0:
-        #     cannonballs.remove(ball)
 
     pygame.display.flip()  # Update display
 
