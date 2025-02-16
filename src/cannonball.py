@@ -36,7 +36,12 @@ class CannonBall:
 
     def is_in_screen(self):
         """Check if the ball is within the screen boundaries"""
-        return 0 <= self.x <= DISPLAY_WIDTH and 0 <= self.y <= DISPLAY_HEIGHT
+        # Ignore display height since ball falls:
+        # - (0,0) is the top-left corner
+        # - (width, 0) is the top-right
+        # - (0, height) is the bottom-left
+        # - (width, height) is the bottom-right
+        return (0 <= self.x <= DISPLAY_WIDTH) and (self.y <= DISPLAY_HEIGHT)
 
     def draw(self):
         """Draw the cannon ball on the screen"""
