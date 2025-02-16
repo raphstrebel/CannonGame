@@ -1,10 +1,7 @@
 import pygame
-from src.constants import (
-    WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, CANNON_LEFT_X,
-    CANNON_LEFT_Y, CANNON_RIGHT_X, CANNON_RIGHT_Y,
-    DIRECTION
-)
-from src.cannon import Cannon, Barrel
+from src.constants import WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, DIRECTION
+from src.cannon import Cannon
+from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
 from src.player import Player
 
@@ -19,9 +16,9 @@ pygame.display.set_caption("Cannon Ball")
 turn = 0  # player on the left starts
 cannonball: CannonBall = None
 
-barrel_left = Barrel(screen, DIRECTION.LEFT)
+barrel_left = BarrelLeft(screen)
 cannon_left = Cannon(screen, DIRECTION.LEFT, barrel_left)
-barrel_right = Barrel(screen, DIRECTION.RIGHT)
+barrel_right = BarrelRight(screen)
 cannon_right = Cannon(screen, DIRECTION.RIGHT, barrel_right)
 
 player_0 = Player(cannon_left)
