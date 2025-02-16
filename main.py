@@ -1,4 +1,5 @@
 import pygame
+
 from src.constants import WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, DIRECTION
 from src.cannon import Cannon
 from src.barrel import BarrelLeft, BarrelRight
