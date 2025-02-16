@@ -33,40 +33,22 @@ class Cannon:
         pygame.draw.rect(self.screen, 
                          GREY, 
                          (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT))
-        # Arc
-        # pygame.draw.arc(self.screen, GREY, (self.x, self.y - 20, 60, 40), 0, math.pi, 5)
+        # Arc above base rectangle
         pygame.draw.ellipse(self.screen, GREY, (self.x, self.y - 15, 60, 30))
         # Wheel
         pygame.draw.circle(self.screen, 
                            DARK_GREY, 
                            (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH), 
                            self.WHEEL_RAD)
-
     
     def draw(self):
         """Draw the current cannon with barrel"""
         self.draw_cannon_base()
         self.barrel.draw()
-        
-    # def draw_barrel(self, mouse_x, mouse_y):
-    #     angle = math.atan2(mouse_y - (self.y + 15), mouse_x - (self.x + 30))
 
-    #     # Cannon barrel
-    #     # pygame.draw.rect(self.screen, GREY, (self.x + 40, self.y - 10, 50, 15))
-    #     pygame.draw.rect(self.screen, GREY, (self.x - 30, self.y - 10, 50, 15))
-
-    #     # Calculate barrel end position
-    #     length = 50  # Barrel length
-    #     barrel_x = self.x - 30 + length * math.cos(angle)
-    #     barrel_y = self.y - 10 + length * math.sin(angle)
-    #     # pygame.draw.rect(self.screen, GREY, (barrel_x, barrel_y, barrel_x, barrel_y))
-
-    #     # Draw rotating barrel
-    #     # if rev:
-    #     #     # pygame.draw.line(screen, GREY, (x + 40, y - 10), (barrel_x, barrel_y), 10)
-    #     #     pygame.draw.rect(self.screen, GREY, (self.x + 40, self.y - 10, barrel_x, barrel_y))
-    #     #     # pygame.draw.rect(screen, GREY, (start_x + 40, start_y - 10, 50, 15))
-    #     # else:
-    #     pygame.draw.line(self.screen, GREY, (self.x - 30, self.y - 10), (barrel_x, barrel_y), 10)
-    #     # pygame.draw.rect(self.screen, GREY, (self.x - 30, self.y - 10, barrel_x, barrel_y))
-    #     # pygame.draw.rect(self.screen, GREY, (self.x - 30, self.y - 10, 50, 15))
+    def shoot(self):
+        """Shoot a cannonball on click"""
+        ball_redius = 5
+        ball_x = self.barrel.x + self.barrel.WIDTH  + 10
+        ball_y = self.barrel.y + self.barrel.HEIGHT / 2 + 10
+        pygame.draw.circle(self.screen, DARK_GREY, (ball_x, ball_y), ball_redius)

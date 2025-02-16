@@ -26,28 +26,23 @@ class Barrel:
 
     def draw(self):
         """Draw the barrel depending on the mouse position"""
-        # Get mouse position and calculate angle
+
+        # Get mouse position and calculate barrel angle
         mouse_x, mouse_y = pygame.mouse.get_pos()
         angle = math.atan2(mouse_y - self.y, mouse_x - self.x)
 
-        angle = min(self.angle_top_lim, angle)
-        angle = max(self.angle_down_lim, angle)
-
-        # Cannon barrel
-        # pygame.draw.rect(self.screen, GREY, (self.x + 40, self.y - 10, 50, 15))
-        # pygame.draw.rect(self.screen, GREY, (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT))
+        angle = self.get_angle_limit(angle)
 
         # Calculate barrel end position
         barrel_x = self.x + self.WIDTH * math.cos(angle)
         barrel_y = self.y + self.WIDTH * math.sin(angle)
-        # pygame.draw.rect(self.screen, GREY, (barrel_x, barrel_y, barrel_x, barrel_y))
 
-        # Draw rotating barrel
-        # if rev:
-        #     # pygame.draw.line(screen, GREY, (x + 40, y - 10), (barrel_x, barrel_y), 10)
-        #     pygame.draw.rect(self.screen, GREY, (self.x + 40, self.y - 10, barrel_x, barrel_y))
-        #     # pygame.draw.rect(screen, GREY, (start_x + 40, start_y - 10, 50, 15))
-        # else:
+        # Draw barrel
         pygame.draw.line(self.screen, GREY, (self.x, self.y), (barrel_x, barrel_y), self.HEIGHT)
-        # pygame.draw.rect(self.screen, GREY, (self.x - 30, self.y - 10, barrel_x, barrel_y))
-        # pygame.draw.rect(self.screen, GREY, (self.x - 30, self.y - 10, 50, 15))
+
+    def get_angle_limit(self, angle: float):
+        """Return the corrected angle within the allowed limits"""
+        angle = min(self.angle_top_lim, angle)
+        angle = max(self.angle_down_lim, angle)
+        return angle
+    
