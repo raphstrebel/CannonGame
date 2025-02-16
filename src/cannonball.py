@@ -10,7 +10,7 @@ class CannonBall:
 
     BALL_RADIUS = 5
     BALL_COLOR = DARK_GREY
-    GRAVITY = 0  # Adjust for better effect
+    GRAVITY = 0.001  # Adjust for better effect
     SPEED = 1  # Increased speed so the ball is visible
 
 
@@ -32,7 +32,7 @@ class CannonBall:
         """Update the position of the cannon ball"""
         self.x += self.vx  # Keep as float for smoother movement
         self.y += self.vy
-        # self.vy += self.GRAVITY  # Gravity affects vertical speed
+        self.vy += self.GRAVITY  # Gravity affects vertical speed
 
     def is_in_screen(self):
         """Check if the ball is within the screen boundaries"""
