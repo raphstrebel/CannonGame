@@ -5,6 +5,7 @@ from pygame import Surface
 
 from src.constants import GREY, DARK_GREY
 from src.barrel import Barrel
+from src.cannonball import CannonBall
 
 class Cannon:
 
@@ -26,6 +27,7 @@ class Cannon:
         self.y = y
         self.screen = screen
         self.barrel = barrel
+        self.cannonballs: list[CannonBall] = []
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
@@ -46,9 +48,24 @@ class Cannon:
         self.draw_cannon_base()
         self.barrel.draw()
 
-    def shoot(self):
-        """Shoot a cannonball on click"""
-        ball_redius = 5
-        ball_x = self.barrel.x + self.barrel.WIDTH  + 10
-        ball_y = self.barrel.y + self.barrel.HEIGHT / 2 + 10
-        pygame.draw.circle(self.screen, DARK_GREY, (ball_x, ball_y), ball_redius)
+    # def shoot(self):
+    #     """Shoot a cannonball on click"""
+    #     ball_redius = 5
+    #     ball_x = self.barrel.x + self.barrel.WIDTH  + 10
+    #     ball_y = self.barrel.y + self.barrel.HEIGHT / 2 + 10
+    #     pygame.draw.circle(self.screen, DARK_GREY, (ball_x, ball_y), ball_redius)
+
+    def shoot(self, screen):
+        """Shoots a cannonball towards the mouse cursor with gravity."""
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        angle = math.atan2(mouse_y - self.barrel.y, mouse_x - self.barrel.x)
+        angle = self.barrel.get_angle_limit(angle)
+
+        cannonball = CannonBall(self.barrel.x, self.barrel.y, angle)
+        self.cannonballs.append(cannonball)
+        cannonball.draw(screen)
+        
+        # Each cannonball stores position, velocity, and gravity effect
+        # cannonballs.append([[cannon.barrel.x, cannon.barrel.y], 
+        #                     [speed * math.cos(angle), speed * math.sin(angle)], 
+        #                     gravity])
