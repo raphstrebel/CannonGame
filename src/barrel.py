@@ -21,8 +21,9 @@ class Barrel:
         """Start pos of barrel"""
         self.screen = screen
         self.direction = direction
-        angle = BARREL_RIGHT_ANGLE_DOWN_LIM
+        angle = 0
         if direction == DIRECTION.RIGHT:
+            self.WIDTH = -self.WIDTH
             self.base_x: int = BARREL_RIGHT_X
             self.curr_x: int = BARREL_RIGHT_X + self.WIDTH * math.cos(angle)
             self.base_y: int = BARREL_RIGHT_Y
@@ -47,6 +48,8 @@ class Barrel:
         # Get mouse position and calculate barrel angle
         mouse_x, mouse_y = pygame.mouse.get_pos()
         angle = math.atan2(mouse_y - self.base_y, mouse_x - self.base_x)
+        # print("x:", mouse_x)
+        # print("y:", mouse_y)
 
         angle = self.get_angle_limit(angle)
 
