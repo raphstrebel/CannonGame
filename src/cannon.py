@@ -3,9 +3,11 @@ import math
 import pygame
 from pygame import Surface
 
-from src.constants import GREY, DARK_GREY
 from src.barrel import Barrel
 from src.cannonball import CannonBall
+from src.constants import (
+    GREY, DARK_GREY, DIRECTION, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
+)
 
 class Cannon:
 
@@ -18,13 +20,16 @@ class Cannon:
     def __init__(
         self,
         screen: Surface,
-        x: int,
-        y: int,
+        direction: DIRECTION,
         barrel: Barrel
     ):
         """Start pos of cannon base"""
-        self.x = x
-        self.y = y
+        if direction == DIRECTION.RIGHT:
+            self.x: int = CANNON_RIGHT_X
+            self.y: int = CANNON_RIGHT_Y
+        elif direction == DIRECTION.LEFT:
+            self.x: int = CANNON_LEFT_X
+            self.y: int = CANNON_LEFT_Y
         self.screen = screen
         self.barrel = barrel
 
@@ -45,13 +50,12 @@ class Cannon:
     def draw(self):
         """Draw the current cannon with barrel"""
         self.draw_cannon_base()
-        self.barrel.draw()
 
     def shoot(self):
         """Shoots a cannonball towards the mouse cursor with gravity."""
         mouse_x, mouse_y = pygame.mouse.get_pos()
-        angle = math.atan2(mouse_y - self.barrel.y, mouse_x - self.barrel.x)
+        angle = math.atan2(mouse_y - self.barrel.base_y, mouse_x - self.barrel.base_x)
         angle = self.barrel.get_angle_limit(angle)
 
-        cannonball = CannonBall(self.screen, self.barrel.x, self.barrel.y, angle)
+        cannonball = CannonBall(self.screen, self.barrel.base_x, self.barrel.base_y, angle)
         return cannonball
