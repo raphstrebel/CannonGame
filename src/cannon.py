@@ -56,5 +56,3 @@ class Cannon:
 
         cannonball = CannonBall(self.barrel.x, self.barrel.y, angle)
         return cannonball
-        self.cannonballs.append(cannonball)
-        # cannonball.draw(screen)
