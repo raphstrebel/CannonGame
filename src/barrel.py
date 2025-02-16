@@ -10,9 +10,9 @@ class Barrel:
     HEIGHT = 10
 
     def __init__(
-        self, 
-        screen: Surface, 
-        x: int, 
+        self,
+        screen: Surface,
+        x: int,
         y: int,
         angle_top_lim: float,
         angle_down_lim: float,
@@ -45,4 +45,3 @@ class Barrel:
         angle = min(self.angle_top_lim, angle)
         angle = max(self.angle_down_lim, angle)
         return angle
-    

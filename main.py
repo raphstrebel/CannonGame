@@ -1,6 +1,6 @@
 import pygame
 from src.constants import (
-    WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, CANNON_LEFT_X, 
+    WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, CANNON_LEFT_X,
     CANNON_LEFT_Y, CANNON_RIGHT_X, CANNON_RIGHT_Y,
     BARREL_LEFT_X, BARREL_LEFT_Y, BARREL_RIGHT_X, BARREL_RIGHT_Y,
     BARREL_RIGHT_ANGLE_TOP_LIM, BARREL_RIGHT_ANGLE_DOWN_LIM,
@@ -21,12 +21,12 @@ cannonballs: list[CannonBall] = []  # List to store cannonballs
 
 running = True
 while running:
-    screen.fill(WHITE)  # Clear screen   
+    screen.fill(WHITE)  # Clear screen
 
-    barrel_left = Barrel(screen, BARREL_LEFT_X, BARREL_LEFT_Y, BARREL_LEFT_ANGLE_TOP_LIM, 
+    barrel_left = Barrel(screen, BARREL_LEFT_X, BARREL_LEFT_Y, BARREL_LEFT_ANGLE_TOP_LIM,
                          BARREL_LEFT_ANGLE_DOWN_LIM)
     cannon_left = Cannon(screen, CANNON_LEFT_X, CANNON_LEFT_Y, barrel_left)
-    barrel_right = Barrel(screen, BARREL_RIGHT_X, BARREL_RIGHT_Y, BARREL_RIGHT_ANGLE_TOP_LIM, 
+    barrel_right = Barrel(screen, BARREL_RIGHT_X, BARREL_RIGHT_Y, BARREL_RIGHT_ANGLE_TOP_LIM,
                           BARREL_RIGHT_ANGLE_DOWN_LIM)
     cannon_right = Cannon(screen, CANNON_RIGHT_X, CANNON_RIGHT_Y, barrel_right)
 
@@ -41,10 +41,10 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             cannonballs.append(cannon_left.shoot())
 
-    # Update and draw a copy of cannonballs
+    # Update and draw cannonballs
     for ball in cannonballs:
         ball.update_pos()
-        ball.draw(screen)
+        ball.draw()
 
         # Remove cannonball if it goes off-screen
         if not ball.is_in_screen():
