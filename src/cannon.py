@@ -41,13 +41,13 @@ class Cannon:
         """Draw the current cannon with barrel"""
         self.draw_cannon_base()
 
-    def shoot(self):
+    def shoot(self, screen: Surface):
         """Shoots a cannonball towards the mouse cursor with gravity."""
         mouse_x, mouse_y = pygame.mouse.get_pos()
         angle = math.atan2(mouse_y - self.barrel.base_y, mouse_x - self.barrel.base_x)
         angle = self.barrel.get_angle_limit(angle)
 
-        cannonball = CannonBall(self.screen, self.barrel.base_x, self.barrel.base_y, angle)
+        cannonball = CannonBall(screen, self.barrel.base_x, self.barrel.base_y, angle)
         return cannonball
 
     def is_in_hit_box(self, cannonball: CannonBall):
@@ -61,7 +61,7 @@ class Cannon:
         max_radius = 50
 
         while explosion_radius < max_radius:
-            pygame.draw.circle(self.screen, Color.RED, (cannonball.x, cannonball.y), explosion_radius)
+            pygame.draw.circle(cannonball.screen, Color.RED, (cannonball.x, cannonball.y), explosion_radius)
             pygame.display.flip()
             time.sleep(0.05)
             explosion_radius += 5

@@ -5,35 +5,44 @@ from src.cannon import CannonLeft, CannonRight
 from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
 from src.player import Player
+from src.obstacle import Obstacle
 
 
 # Initialize Pygame
 pygame.init()
-
 screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+
+# Create a background surface once
+background = pygame.Surface((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+background.fill(Color.BLUE, (0, 0, DISPLAY_WIDTH, SKY_Y))  # Sky blue
+background.fill(Color.GREEN, (0, SKY_Y, DISPLAY_WIDTH, GRASS_Y))  # Grass green
+
 pygame.display.set_caption("Cannon Ball")
 
 turn = 0  # player on the left starts
 cannonball: CannonBall = None
 
 barrel_left = BarrelLeft(screen)
-cannon_left = CannonLeft(screen, barrel_left)
+cannon_left = CannonLeft(background, barrel_left)
 barrel_right = BarrelRight(screen)
-cannon_right = CannonRight(screen, barrel_right)
+cannon_right = CannonRight(background, barrel_right)
 
 player_0 = Player(cannon_left)
 player_1 = Player(cannon_right)
 active_player = player_0
 sleeping_player = player_1
 
+hill = Obstacle(background)
+
+# Draw static elements on the background
+hill.draw()
+player_0.cannon.draw()
+player_1.cannon.draw()
 
 running = True
 while running:
-    screen.fill(Color.BLUE, (0, 0, DISPLAY_WIDTH, SKY_Y))  # Sky blue (top half)
-    screen.fill(Color.GREEN, (0, SKY_Y, DISPLAY_WIDTH, GRASS_Y))  # Grass green (bottom half)
 
-    player_0.cannon.draw()
-    player_1.cannon.draw()
+    screen.blit(background, (0, 0))  # Blit the pre-rendered background
     active_player.cannon.barrel.draw()
     sleeping_player.cannon.barrel.draw_still()
 
@@ -43,7 +52,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             # next player can click if cannonball is out of play
             if not cannonball:
-                cannonball = active_player.cannon.shoot()
+                cannonball = active_player.cannon.shoot(screen)
 
     if cannonball:
         # Update and draw cannonballs
