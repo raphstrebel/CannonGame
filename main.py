@@ -1,6 +1,6 @@
 import pygame
 
-from src.constants import Color, DISPLAY_WIDTH, DISPLAY_HEIGHT
+from src.constants import Color, DISPLAY_WIDTH, DISPLAY_HEIGHT, SKY_Y, GRASS_Y
 from src.cannon import CannonLeft, CannonRight
 from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
@@ -29,7 +29,8 @@ sleeping_player = player_1
 
 running = True
 while running:
-    screen.fill(Color.WHITE)  # Clear screen
+    screen.fill(Color.BLUE, (0, 0, DISPLAY_WIDTH, SKY_Y))  # Sky blue (top half)
+    screen.fill(Color.GREEN, (0, SKY_Y, DISPLAY_WIDTH, GRASS_Y))  # Grass green (bottom half)
 
     player_0.cannon.draw()
     player_1.cannon.draw()
@@ -53,6 +54,10 @@ while running:
         if sleeping_player.cannon.is_in_hit_box(cannonball):
             sleeping_player.cannon.explode(cannonball)
             cannonball = None  # Remove the cannonball on hit
+        # FIXME: can right player self-explode?
+        # elif active_player.cannon.is_in_hit_box(cannonball):
+        #     active_player.cannon.explode(cannonball)
+        #     cannonball = None  # Remove the cannonball on hit
 
         # Remove cannonball if it goes off-screen
         if not cannonball or not cannonball.is_in_screen():

@@ -7,7 +7,7 @@ from pygame import Surface
 from src.barrel import Barrel, BarrelRight, BarrelLeft
 from src.cannonball import CannonBall
 from src.constants import (
-    Color, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
+    Color, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_Y
 )
 
 class Cannon:
@@ -78,7 +78,7 @@ class CannonLeft(Cannon):
         """Start pos of cannon base"""
         super().__init__()
         self.x: int = CANNON_LEFT_X
-        self.y: int = CANNON_LEFT_Y
+        self.y: int = CANNON_Y
         self.screen = screen
         self.barrel = barrel
         # Cannon area
@@ -110,7 +110,7 @@ class CannonRight(Cannon):
         """Start pos of cannon base"""
         super().__init__()
         self.x: int = CANNON_RIGHT_X
-        self.y: int = CANNON_RIGHT_Y
+        self.y: int = CANNON_Y
         self.screen = screen
         self.barrel = barrel
         # Cannon area
