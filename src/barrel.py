@@ -15,12 +15,19 @@ class Barrel:
     def __init__(self, screen: Surface):
         """Start pos of barrel"""
         self.screen = screen
+        self.base_x = 0
+        self.base_y = 0
+        self.curr_x = 0
+        self.curr_y = 0
 
     def draw_still(self):
         """Draw the barrel at still position (as player left them)"""
         pygame.draw.line(self.screen, GREY, (self.base_x, self.base_y), (self.curr_x, self.curr_y), self.HEIGHT)
 
     def draw(self):
+        raise NotImplementedError('Cannot call abstract class func')
+
+    def get_angle_limit(self):
         raise NotImplementedError('Cannot call abstract class func')
 
 

@@ -51,7 +51,7 @@ while running:
         cannonball.draw()
 
         # Remove cannonball if it goes off-screen
-        if not cannonball.is_in_screen():
+        if not cannonball or not cannonball.is_in_screen():
             # next player
             if turn == 0:
                 turn = 1
@@ -62,6 +62,8 @@ while running:
                 active_player = player_0
                 sleeping_player = player_1
             cannonball = None
+
+        # check if the cannonball hit the other cannon
 
     pygame.display.flip()  # Update display
 

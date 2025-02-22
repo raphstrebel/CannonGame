@@ -13,7 +13,6 @@ class CannonBall:
     GRAVITY = 0.001  # Adjust for better effect
     SPEED = 1  # Increased speed so the ball is visible
 
-
     def __init__(
         self,
         screen: Surface,

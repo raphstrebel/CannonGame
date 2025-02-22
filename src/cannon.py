@@ -6,7 +6,7 @@ from pygame import Surface
 from src.barrel import Barrel
 from src.cannonball import CannonBall
 from src.constants import (
-    GREY, DARK_GREY, DIRECTION, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
+    DIRECTION, GREY, DARK_GREY, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
 )
 
 class Cannon:
@@ -32,20 +32,19 @@ class Cannon:
             self.y: int = CANNON_LEFT_Y
         self.screen = screen
         self.barrel = barrel
+        # Cannon area
+        self.base_rect = (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT)
+        self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
+        self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
         # Base rectangle
-        pygame.draw.rect(self.screen,
-                         GREY,
-                         (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT))
+        pygame.draw.rect(self.screen, GREY, self.base_rect)
         # Arc above base rectangle
-        pygame.draw.ellipse(self.screen, GREY, (self.x, self.y - 15, 60, 30))
+        pygame.draw.ellipse(self.screen, GREY, self.ellipse_rect)
         # Wheel
-        pygame.draw.circle(self.screen,
-                           DARK_GREY,
-                           (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH),
-                           self.WHEEL_RAD)
+        pygame.draw.circle(self.screen, DARK_GREY, self.wheel_center, self.WHEEL_RAD)
 
     def draw(self):
         """Draw the current cannon with barrel"""
@@ -59,3 +58,7 @@ class Cannon:
 
         cannonball = CannonBall(self.screen, self.barrel.base_x, self.barrel.base_y, angle)
         return cannonball
+
+    def is_in_hit_box(self, x, y):
+        """Return true if the position is in the cannon hit box"""
+
