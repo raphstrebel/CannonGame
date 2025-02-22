@@ -1,7 +1,7 @@
 import pygame
 
 from src.constants import WHITE, DISPLAY_WIDTH, DISPLAY_HEIGHT, DIRECTION
-from src.cannon import Cannon
+from src.cannon import CannonLeft, CannonRight
 from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
 from src.player import Player
@@ -13,14 +13,14 @@ pygame.init()
 screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 pygame.display.set_caption("Cannon Ball")
 
-
+i = 0
 turn = 0  # player on the left starts
 cannonball: CannonBall = None
 
 barrel_left = BarrelLeft(screen)
-cannon_left = Cannon(screen, DIRECTION.LEFT, barrel_left)
+cannon_left = CannonLeft(screen, barrel_left)
 barrel_right = BarrelRight(screen)
-cannon_right = Cannon(screen, DIRECTION.RIGHT, barrel_right)
+cannon_right = CannonRight(screen, barrel_right)
 
 player_0 = Player(cannon_left)
 player_1 = Player(cannon_right)
@@ -49,6 +49,12 @@ while running:
         # Update and draw cannonballs
         cannonball.update_pos()
         cannonball.draw()
+
+        # Check if the cannonball hits the sleeping player's cannon or barrel
+        if sleeping_player.cannon.is_in_hit_box(cannonball):
+            i += 1
+            print(f"Hit {i}!")
+            cannonball = None  # Remove the cannonball on hit
 
         # Remove cannonball if it goes off-screen
         if not cannonball or not cannonball.is_in_screen():

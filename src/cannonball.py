@@ -44,4 +44,4 @@ class CannonBall:
 
     def draw(self):
         """Draw the cannon ball on the screen"""
-        pygame.draw.circle(self.screen, self.BALL_COLOR, (int(self.x), int(self.y)), self.BALL_RADIUS)
+        pygame.draw.circle(self.screen, self.BALL_COLOR, (self.x, self.y), self.BALL_RADIUS)

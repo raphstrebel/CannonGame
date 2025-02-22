@@ -3,7 +3,7 @@ import math
 import pygame
 from pygame import Surface
 
-from src.barrel import Barrel
+from src.barrel import Barrel, BarrelRight, BarrelLeft
 from src.cannonball import CannonBall
 from src.constants import (
     DIRECTION, GREY, DARK_GREY, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
@@ -17,25 +17,31 @@ class Cannon:
     WHEEL_WIDTH = 30
 
 
-    def __init__(
-        self,
-        screen: Surface,
-        direction: DIRECTION,
-        barrel: Barrel
-    ):
+    def __init__(self):
         """Start pos of cannon base"""
-        if direction == DIRECTION.RIGHT:
-            self.x: int = CANNON_RIGHT_X
-            self.y: int = CANNON_RIGHT_Y
-        elif direction == DIRECTION.LEFT:
-            self.x: int = CANNON_LEFT_X
-            self.y: int = CANNON_LEFT_Y
-        self.screen = screen
-        self.barrel = barrel
-        # Cannon area
-        self.base_rect = (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT)
-        self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
-        self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
+        self.x: int = 0
+        self.y: int = 0
+        self.screen: Surface = None
+        self.barrel: Barrel = None
+        self.base_rect: tuple = None
+        self.ellipse_rect: tuple = None
+        self.wheel_center: tuple = None
+        # if direction == DIRECTION.RIGHT:
+        #     self.x: int = CANNON_RIGHT_X
+        #     self.y: int = CANNON_RIGHT_Y
+        # elif direction == DIRECTION.LEFT:
+        #     self.x: int = CANNON_LEFT_X
+        #     self.y: int = CANNON_LEFT_Y
+        # self.screen = screen
+        # self.barrel = barrel
+        # # Cannon area
+        # self.base_rect = (max(self.x, self.BASE_WIDTH),
+        #                   max(self.y, self.BASE_HEIGHT),
+        #                   min(self.x, self.BASE_WIDTH),
+        #                   min(self.y, self.BASE_HEIGHT))
+        # # self.base_rect = (100, 400, 160, 430)
+        # self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
+        # self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
@@ -59,6 +65,71 @@ class Cannon:
         cannonball = CannonBall(self.screen, self.barrel.base_x, self.barrel.base_y, angle)
         return cannonball
 
-    def is_in_hit_box(self, x, y):
-        """Return true if the position is in the cannon hit box"""
+    def is_in_hit_box(self, cannonball: CannonBall):
+        """Return true if the cannonball position is in the cannon hit box"""
+        raise NotImplementedError()
+
+
+class CannonLeft(Cannon):
+
+    def __init__(
+        self,
+        screen: Surface,
+        barrel: BarrelLeft
+    ):
+        """Start pos of cannon base"""
+        super().__init__()
+        self.x: int = CANNON_LEFT_X
+        self.y: int = CANNON_LEFT_Y
+        self.screen = screen
+        self.barrel = barrel
+        # Cannon area
+        self.base_rect = (max(self.x, self.BASE_WIDTH),
+                          max(self.y, self.BASE_HEIGHT),
+                          min(self.x, self.BASE_WIDTH),
+                          min(self.y, self.BASE_HEIGHT))
+        # self.base_rect = (100, 400, 160, 430)
+        self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
+        self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
+
+    def is_in_hit_box(self, cannonball: CannonBall):
+        """Return true if the cannonball position is in the cannon hit box"""
+        return (self.x <= cannonball.x <= self.x + self.BASE_WIDTH and
+                self.y <= cannonball.y <= self.y + self.BASE_HEIGHT)
+        # return (self.x - self.BASE_WIDTH <= cannonball.x <= self.x and
+        #         self.y - self.BASE_HEIGHT <= cannonball.y <= self.y)
+        # return (self.base_rect[2] <= cannonball.x <= self.base_rect[0] and
+        #         self.base_rect[3] <= cannonball.y <= self.base_rect[1])
+
+
+class CannonRight(Cannon):
+
+    def __init__(
+        self,
+        screen: Surface,
+        barrel: BarrelRight
+    ):
+        """Start pos of cannon base"""
+        super().__init__()
+        self.x: int = CANNON_RIGHT_X
+        self.y: int = CANNON_RIGHT_Y
+        self.screen = screen
+        self.barrel = barrel
+        # Cannon area
+        self.base_rect = (max(self.x, self.BASE_WIDTH),
+                          max(self.y, self.BASE_HEIGHT),
+                          min(self.x, self.BASE_WIDTH),
+                          min(self.y, self.BASE_HEIGHT))
+        # self.base_rect = (100, 400, 160, 430)
+        self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
+        self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
+
+    def is_in_hit_box(self, cannonball: CannonBall):
+        """Return true if the cannonball position is in the cannon hit box"""
+        return (self.x <= cannonball.x <= self.x + self.BASE_WIDTH and
+                self.y <= cannonball.y <= self.y + self.BASE_HEIGHT)
+        # return (self.x - self.BASE_WIDTH <= cannonball.x <= self.x and
+        #         self.y - self.BASE_HEIGHT <= cannonball.y <= self.y)
+        # return (self.base_rect[2] <= cannonball.x <= self.base_rect[0] and
+        #         self.base_rect[3] <= cannonball.y <= self.base_rect[1])
 

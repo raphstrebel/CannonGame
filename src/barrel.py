@@ -50,6 +50,7 @@ class BarrelLeft(Barrel):
 
         # Get mouse position and calculate barrel angle
         mouse_x, mouse_y = pygame.mouse.get_pos()
+        # print(mouse_x, mouse_y)
         angle = math.atan2(mouse_y - self.base_y, mouse_x - self.base_x)
         angle = self.get_angle_limit(angle)
 
