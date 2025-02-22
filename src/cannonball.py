@@ -3,13 +3,13 @@ import math
 import pygame
 from pygame import Surface
 
-from src.constants import DARK_GREY, DISPLAY_WIDTH, DISPLAY_HEIGHT
+from src.constants import Color, DISPLAY_WIDTH, DISPLAY_HEIGHT
 
 
 class CannonBall:
 
     BALL_RADIUS = 5
-    BALL_COLOR = DARK_GREY
+    BALL_COLOR = Color.DARK_GREY
     GRAVITY = 0.001  # Adjust for better effect
     SPEED = 1  # Increased speed so the ball is visible
 

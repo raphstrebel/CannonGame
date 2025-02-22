@@ -4,7 +4,7 @@ import pygame
 from pygame import Surface
 
 from src.constants import (
-    GREY, BARREL_LEFT_X, BARREL_LEFT_Y, BARREL_RIGHT_X, BARREL_RIGHT_Y
+    Color, BARREL_LEFT_X, BARREL_LEFT_Y, BARREL_RIGHT_X, BARREL_RIGHT_Y
 )
 
 class Barrel:
@@ -22,7 +22,9 @@ class Barrel:
 
     def draw_still(self):
         """Draw the barrel at still position (as player left them)"""
-        pygame.draw.line(self.screen, GREY, (self.base_x, self.base_y), (self.curr_x, self.curr_y), self.HEIGHT)
+        pygame.draw.line(self.screen, Color.GREY,
+                         (self.base_x, self.base_y),
+                         (self.curr_x, self.curr_y), self.HEIGHT)
 
     def draw(self):
         raise NotImplementedError('Cannot call abstract class func')
@@ -59,7 +61,7 @@ class BarrelLeft(Barrel):
         self.curr_y = self.base_y + self.WIDTH * math.sin(angle)
 
         # Draw barrel
-        pygame.draw.line(self.screen, GREY, (self.base_x, self.base_y), (self.curr_x, self.curr_y), self.HEIGHT)
+        pygame.draw.line(self.screen, Color.GREY, (self.base_x, self.base_y), (self.curr_x, self.curr_y), self.HEIGHT)
 
     def get_angle_limit(self, angle: float):
         """Return the corrected angle within the allowed limits"""
@@ -93,7 +95,9 @@ class BarrelRight(Barrel):
         self.curr_y = self.base_y - self.WIDTH * math.sin(angle)
 
         # Draw barrel
-        pygame.draw.line(self.screen, GREY, (self.base_x, self.base_y), (self.curr_x, self.curr_y), self.HEIGHT)
+        pygame.draw.line(self.screen, Color.GREY,
+                         (self.base_x, self.base_y),
+                         (self.curr_x, self.curr_y), self.HEIGHT)
 
     def get_angle_limit(self, angle: float):
         """Return the corrected angle within the allowed limits"""

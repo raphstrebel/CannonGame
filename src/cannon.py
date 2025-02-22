@@ -1,4 +1,5 @@
 import math
+import time
 
 import pygame
 from pygame import Surface
@@ -6,7 +7,7 @@ from pygame import Surface
 from src.barrel import Barrel, BarrelRight, BarrelLeft
 from src.cannonball import CannonBall
 from src.constants import (
-    DIRECTION, GREY, DARK_GREY, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
+    Color, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_LEFT_Y, CANNON_RIGHT_Y
 )
 
 class Cannon:
@@ -26,31 +27,15 @@ class Cannon:
         self.base_rect: tuple = None
         self.ellipse_rect: tuple = None
         self.wheel_center: tuple = None
-        # if direction == DIRECTION.RIGHT:
-        #     self.x: int = CANNON_RIGHT_X
-        #     self.y: int = CANNON_RIGHT_Y
-        # elif direction == DIRECTION.LEFT:
-        #     self.x: int = CANNON_LEFT_X
-        #     self.y: int = CANNON_LEFT_Y
-        # self.screen = screen
-        # self.barrel = barrel
-        # # Cannon area
-        # self.base_rect = (max(self.x, self.BASE_WIDTH),
-        #                   max(self.y, self.BASE_HEIGHT),
-        #                   min(self.x, self.BASE_WIDTH),
-        #                   min(self.y, self.BASE_HEIGHT))
-        # # self.base_rect = (100, 400, 160, 430)
-        # self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
-        # self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
         # Base rectangle
-        pygame.draw.rect(self.screen, GREY, self.base_rect)
+        pygame.draw.rect(self.screen, Color.GREY, self.base_rect)
         # Arc above base rectangle
-        pygame.draw.ellipse(self.screen, GREY, self.ellipse_rect)
+        pygame.draw.ellipse(self.screen, Color.GREY, self.ellipse_rect)
         # Wheel
-        pygame.draw.circle(self.screen, DARK_GREY, self.wheel_center, self.WHEEL_RAD)
+        pygame.draw.circle(self.screen, Color.DARK_GREY, self.wheel_center, self.WHEEL_RAD)
 
     def draw(self):
         """Draw the current cannon with barrel"""
@@ -68,6 +53,19 @@ class Cannon:
     def is_in_hit_box(self, cannonball: CannonBall):
         """Return true if the cannonball position is in the cannon hit box"""
         raise NotImplementedError()
+
+    def explode(self, cannonball: CannonBall):
+        """Animate an explosion at the cannon's position"""
+        self.exploding = True
+        explosion_radius = 10
+        max_radius = 50
+
+        while explosion_radius < max_radius:
+            pygame.draw.circle(self.screen, Color.RED, (cannonball.x, cannonball.y), explosion_radius)
+            pygame.display.flip()
+            time.sleep(0.05)
+            explosion_radius += 5
+        self.exploding = False  # Reset state after explosion
 
 
 class CannonLeft(Cannon):
@@ -96,10 +94,10 @@ class CannonLeft(Cannon):
         """Return true if the cannonball position is in the cannon hit box"""
         return (self.x <= cannonball.x <= self.x + self.BASE_WIDTH and
                 self.y <= cannonball.y <= self.y + self.BASE_HEIGHT)
-        # return (self.x - self.BASE_WIDTH <= cannonball.x <= self.x and
-        #         self.y - self.BASE_HEIGHT <= cannonball.y <= self.y)
-        # return (self.base_rect[2] <= cannonball.x <= self.base_rect[0] and
-        #         self.base_rect[3] <= cannonball.y <= self.base_rect[1])
+        # if is_in_base:
+        #     return True
+        # is_in_arc = (self.x <= cannonball.x <= self.x + self.BASE_WIDTH and
+        #              self.y - 15 <= cannonball.y <= self.y + self.BASE_HEIGHT)
 
 
 class CannonRight(Cannon):
@@ -128,8 +126,3 @@ class CannonRight(Cannon):
         """Return true if the cannonball position is in the cannon hit box"""
         return (self.x <= cannonball.x <= self.x + self.BASE_WIDTH and
                 self.y <= cannonball.y <= self.y + self.BASE_HEIGHT)
-        # return (self.x - self.BASE_WIDTH <= cannonball.x <= self.x and
-        #         self.y - self.BASE_HEIGHT <= cannonball.y <= self.y)
-        # return (self.base_rect[2] <= cannonball.x <= self.base_rect[0] and
-        #         self.base_rect[3] <= cannonball.y <= self.base_rect[1])
-
