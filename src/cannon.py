@@ -6,9 +6,7 @@ from pygame import Surface
 
 from src.barrel import Barrel, BarrelRight, BarrelLeft
 from src.cannonball import CannonBall
-from src.constants import (
-    Color, CANNON_LEFT_X, CANNON_RIGHT_X, CANNON_Y
-)
+from src.constants import Color, Dimensions
 
 class Cannon:
 
@@ -30,6 +28,7 @@ class Cannon:
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
+        print(self.base_rect)
         # Base rectangle
         pygame.draw.rect(self.screen, Color.GREY, self.base_rect)
         # Arc above base rectangle
@@ -77,15 +76,12 @@ class CannonLeft(Cannon):
     ):
         """Start pos of cannon base"""
         super().__init__()
-        self.x: int = CANNON_LEFT_X
-        self.y: int = CANNON_Y
+        self.x: int = Dimensions.CANNON_LEFT_X
+        self.y: int = Dimensions.CANNON_Y
         self.screen = screen
         self.barrel = barrel
         # Cannon area
-        self.base_rect = (max(self.x, self.BASE_WIDTH),
-                          max(self.y, self.BASE_HEIGHT),
-                          min(self.x, self.BASE_WIDTH),
-                          min(self.y, self.BASE_HEIGHT))
+        self.base_rect = (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT)
         # self.base_rect = (100, 400, 160, 430)
         self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
         self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)
@@ -109,15 +105,16 @@ class CannonRight(Cannon):
     ):
         """Start pos of cannon base"""
         super().__init__()
-        self.x: int = CANNON_RIGHT_X
-        self.y: int = CANNON_Y
+        self.x: int = Dimensions.CANNON_RIGHT_X
+        self.y: int = Dimensions.CANNON_Y
         self.screen = screen
         self.barrel = barrel
         # Cannon area
-        self.base_rect = (max(self.x, self.BASE_WIDTH),
-                          max(self.y, self.BASE_HEIGHT),
-                          min(self.x, self.BASE_WIDTH),
-                          min(self.y, self.BASE_HEIGHT))
+        self.base_rect = (self.x, self.y, self.BASE_WIDTH, self.BASE_HEIGHT)
+        # self.base_rect = (max(self.x, self.BASE_WIDTH),
+        #                   max(self.y, self.BASE_HEIGHT),
+        #                   min(self.x, self.BASE_WIDTH),
+        #                   min(self.y, self.BASE_HEIGHT))
         # self.base_rect = (100, 400, 160, 430)
         self.ellipse_rect = (self.x, self.y - 15, self.BASE_WIDTH, self.BASE_HEIGHT)
         self.wheel_center =  (self.x + self.WHEEL_WIDTH, self.y + self.WHEEL_WIDTH)

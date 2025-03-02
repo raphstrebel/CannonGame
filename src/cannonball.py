@@ -3,7 +3,7 @@ import math
 import pygame
 from pygame import Surface
 
-from src.constants import Color, DISPLAY_WIDTH, DISPLAY_HEIGHT
+from src.constants import Color, Dimensions
 
 
 class CannonBall:
@@ -11,7 +11,7 @@ class CannonBall:
     BALL_RADIUS = 5
     BALL_COLOR = Color.DARK_GREY
     GRAVITY = 0.001  # Adjust for better effect
-    SPEED = 1  # Increased speed so the ball is visible
+    SPEED = 0.8  # Increased speed so the ball is visible
 
     def __init__(
         self,
@@ -40,7 +40,7 @@ class CannonBall:
         # - (width, 0) is the top-right
         # - (0, height) is the bottom-left
         # - (width, height) is the bottom-right
-        return (0 <= self.x <= DISPLAY_WIDTH) and (self.y <= DISPLAY_HEIGHT)
+        return (0 <= self.x <= Dimensions.DISPLAY_WIDTH) and (self.y <= Dimensions.DISPLAY_HEIGHT)
 
     def draw(self):
         """Draw the cannon ball on the screen"""

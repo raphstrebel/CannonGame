@@ -1,6 +1,8 @@
+import os
+
 import pygame
 
-from src.constants import Color, DISPLAY_WIDTH, DISPLAY_HEIGHT, SKY_Y, GRASS_Y
+from src.constants import Color, Dimensions
 from src.cannon import CannonLeft, CannonRight
 from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
@@ -9,13 +11,30 @@ from src.obstacle import Obstacle
 
 
 # Initialize Pygame
+# Set window position to the top of the screen (x=0, y=0)
+os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
 pygame.init()
-screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+# screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+# screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+info = pygame.display.Info()
+Dimensions.set_dimensions(info.current_w, info.current_h)
+# # dims = Dimensions(info.current_w, info.current_h)
+# Dimensions.DISPLAY_WIDTH = info.current_w
+# Dimensions.DISPLAY_HEIGHT = info.current_h * 0.88  # stop screen above menu bar
+# Dimensions.SKY_Y = Dimensions.DISPLAY_HEIGHT * 0.6
+# Dimensions.GRASS_Y = Dimensions.DISPLAY_HEIGHT - Dimensions.SKY_Y
+# Dimensions.CANNON_Y = Dimensions.SKY_Y - 25
+# Dimensions.BARREL_Y = Dimensions.CANNON_Y - 5
+# # DISPLAY_WIDTH, DISPLAY_HEIGHT = info.current_w, info.current_h
+# # SKY_Y = DISPLAY_HEIGHT * 0.6
+# # GRASS_Y = DISPLAY_HEIGHT - SKY_Y
+screen = pygame.display.set_mode((Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_HEIGHT), pygame.NOFRAME)
+
 
 # Create a background surface once
-background = pygame.Surface((DISPLAY_WIDTH, DISPLAY_HEIGHT))
-background.fill(Color.BLUE, (0, 0, DISPLAY_WIDTH, SKY_Y))  # Sky blue
-background.fill(Color.GREEN, (0, SKY_Y, DISPLAY_WIDTH, GRASS_Y))  # Grass green
+background = pygame.Surface((Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_HEIGHT))
+background.fill(Color.BLUE, (0, 0, Dimensions.DISPLAY_WIDTH, Dimensions.SKY_Y))  # Sky blue
+background.fill(Color.GREEN, (0, Dimensions.SKY_Y, Dimensions.DISPLAY_WIDTH, Dimensions.GRASS_Y))  # Grass green
 
 pygame.display.set_caption("Cannon Ball")
 

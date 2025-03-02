@@ -3,9 +3,7 @@ import math
 import pygame
 from pygame import Surface
 
-from src.constants import (
-    Color, BARREL_LEFT_X, BARREL_Y, BARREL_RIGHT_X, BARREL_Y
-)
+from src.constants import Color, Dimensions
 
 class Barrel:
 
@@ -42,10 +40,10 @@ class BarrelLeft(Barrel):
         """Start pos of barrel"""
         super().__init__(screen=screen)
         angle = 0
-        self.base_x: int = BARREL_LEFT_X
-        self.curr_x: int = BARREL_LEFT_X + self.WIDTH * math.cos(angle)
-        self.base_y: int = BARREL_Y
-        self.curr_y: int = BARREL_Y + self.WIDTH * math.sin(angle)
+        self.base_x: int = Dimensions.BARREL_LEFT_X
+        self.curr_x: int = Dimensions.BARREL_LEFT_X + self.WIDTH * math.cos(angle)
+        self.base_y: int = Dimensions.BARREL_Y
+        self.curr_y: int = Dimensions.BARREL_Y + self.WIDTH * math.sin(angle)
 
     def draw(self):
         """Draw the barrel depending on the mouse position"""
@@ -77,10 +75,10 @@ class BarrelRight(Barrel):
         super().__init__(screen=screen)
         angle = 0
         self.WIDTH = -self.WIDTH
-        self.base_x: int = BARREL_RIGHT_X
-        self.curr_x: int = BARREL_RIGHT_X + self.WIDTH * math.cos(angle)
-        self.base_y: int = BARREL_Y
-        self.curr_y: int = BARREL_Y + self.WIDTH * math.sin(angle)
+        self.base_x: int = Dimensions.BARREL_RIGHT_X
+        self.curr_x: int = Dimensions.BARREL_RIGHT_X + self.WIDTH * math.cos(angle)
+        self.base_y: int = Dimensions.BARREL_Y
+        self.curr_y: int = Dimensions.BARREL_Y + self.WIDTH * math.sin(angle)
 
     def draw(self):
         """Draw the barrel depending on the mouse position"""
