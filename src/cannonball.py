@@ -11,7 +11,7 @@ class CannonBall:
     BALL_RADIUS = 5
     BALL_COLOR = Color.DARK_GREY
     GRAVITY = 0.001  # Adjust for better effect
-    SPEED = 0.8  # Increased speed so the ball is visible
+    SPEED = 1.2  # Increased speed so the ball is visible
 
     def __init__(
         self,

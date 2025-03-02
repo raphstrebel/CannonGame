@@ -35,5 +35,5 @@ class Dimensions:
         Dimensions.BARREL_LEFT_X = 154
 
         # Right Cannon
-        Dimensions.CANNON_RIGHT_X = 500
-        Dimensions.BARREL_RIGHT_X = 505
+        Dimensions.CANNON_RIGHT_X = Dimensions.DISPLAY_WIDTH - 100
+        Dimensions.BARREL_RIGHT_X = Dimensions.CANNON_RIGHT_X + 5
