@@ -1,4 +1,5 @@
 import math
+import time
 
 import pygame
 from pygame import Surface
@@ -41,6 +42,19 @@ class CannonBall:
         # - (0, height) is the bottom-left
         # - (width, height) is the bottom-right
         return (0 <= self.x <= Dimensions.DISPLAY_WIDTH) and (self.y <= Dimensions.DISPLAY_HEIGHT)
+
+    def explode(self):
+        """Animate an explosion at the cannon's position"""
+        self.exploding = True
+        explosion_radius = 10
+        max_radius = 50
+
+        while explosion_radius < max_radius:
+            pygame.draw.circle(self.screen, Color.RED, (self.x, self.y), explosion_radius)
+            pygame.display.flip()
+            time.sleep(0.05)
+            explosion_radius += 5
+        self.exploding = False  # Reset state after explosion
 
     def draw(self):
         """Draw the cannon ball on the screen"""

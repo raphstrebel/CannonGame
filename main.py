@@ -22,7 +22,7 @@ screen = pygame.display.set_mode((Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_H
 # Create a background surface once
 background = pygame.Surface((Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_HEIGHT))
 background.fill(Color.BLUE, (0, 0, Dimensions.DISPLAY_WIDTH, Dimensions.SKY_Y))  # Sky blue
-background.fill(Color.GREEN, (0, Dimensions.SKY_Y, Dimensions.DISPLAY_WIDTH, Dimensions.GRASS_Y))  # Grass green
+background.fill(Color.GREEN, (0, Dimensions.SKY_Y, Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_HEIGHT))  # Grass green
 
 pygame.display.set_caption("Cannon Ball")
 
@@ -68,8 +68,12 @@ while running:
 
         # Check if the cannonball hits the sleeping player's cannon or barrel
         if sleeping_player.cannon.is_in_hit_box(cannonball):
-            sleeping_player.cannon.explode(cannonball)
+            cannonball.explode()
             cannonball = None  # Remove the cannonball on hit
+        elif hill.is_in_hit_box(cannonball):
+            cannonball.explode()
+            cannonball = None  # Remove the cannonball on hit
+
         # FIXME: can right player self-explode?
         # elif active_player.cannon.is_in_hit_box(cannonball):
         #     active_player.cannon.explode(cannonball)

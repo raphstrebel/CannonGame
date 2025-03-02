@@ -3,6 +3,8 @@ import pygame
 import random
 
 from src.constants import Color, Dimensions
+from src.cannonball import CannonBall
+
 
 class Hill:
 
@@ -15,17 +17,34 @@ class Hill:
 
     def generate_hill(self):
         """Generate a smooth hill using sine waves and randomness."""
+        # Random peak height
+        self.peak_y = random.randint(Dimensions.HILL_HEIGHT_MIN, Dimensions.HILL_HEIGHT_MAX)
+
         width = self.x_end - self.x_start
-        peak_y = random.randint(Dimensions.HILL_HEIGHT_MIN, Dimensions.HILL_HEIGHT_MAX)  # Random peak height
 
         points = []
         for x in range(self.x_start, self.x_end+5, 5):
             norm_x = (x - self.x_start) / width * math.pi  # Normalize x to π range
-            y_offset = math.sin(norm_x) * (peak_y - Dimensions.HILL_HEIGHT_MIN)  # Smooth curve
+            y_offset = math.sin(norm_x) * (self.peak_y - Dimensions.HILL_HEIGHT_MIN)  # Smooth curve
             y = Dimensions.OBSTACLE_Y - y_offset  # Place above ground
             points.append((x, int(y)))
-
         return points
+
+    def is_in_hit_box(self, cannonball: CannonBall):
+        """Return True if the given (x, y) position touches the hill."""
+        x, y = cannonball.x, cannonball.y
+        # Explode cannonball if it hits the ground as well
+        if y > Dimensions.SKY_Y:
+            return True
+        # Sanity checks: ball must be within hill quadrant
+        if not (self.x_start < x < self.x_end):
+            return False
+        if self.peak_y < y:
+            return False
+        for hill_x, hill_y in self.points:
+            if abs(x - hill_x) < 5 and y >= hill_y:  # Check proximity and if below/at hill surface
+                return True
+        return False
 
     def draw(self):
         """Draw the hill on the screen."""

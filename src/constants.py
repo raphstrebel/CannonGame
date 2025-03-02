@@ -17,7 +17,6 @@ class Dimensions:
 
         # Background
         Dimensions.SKY_Y = int(Dimensions.DISPLAY_HEIGHT * 0.6)
-        Dimensions.GRASS_Y = Dimensions.DISPLAY_HEIGHT - Dimensions.SKY_Y
 
         # Hill
         Dimensions.OBSTACLE_Y = Dimensions.SKY_Y

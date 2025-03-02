@@ -1,5 +1,4 @@
 import math
-import time
 
 import pygame
 from pygame import Surface
@@ -28,7 +27,6 @@ class Cannon:
 
     def draw_cannon_base(self):
         """Draw the base of the cannon (without barrel)"""
-        print(self.base_rect)
         # Base rectangle
         pygame.draw.rect(self.screen, Color.GREY, self.base_rect)
         # Arc above base rectangle
@@ -52,19 +50,6 @@ class Cannon:
     def is_in_hit_box(self, cannonball: CannonBall):
         """Return true if the cannonball position is in the cannon hit box"""
         raise NotImplementedError()
-
-    def explode(self, cannonball: CannonBall):
-        """Animate an explosion at the cannon's position"""
-        self.exploding = True
-        explosion_radius = 10
-        max_radius = 50
-
-        while explosion_radius < max_radius:
-            pygame.draw.circle(cannonball.screen, Color.RED, (cannonball.x, cannonball.y), explosion_radius)
-            pygame.display.flip()
-            time.sleep(0.05)
-            explosion_radius += 5
-        self.exploding = False  # Reset state after explosion
 
 
 class CannonLeft(Cannon):
