@@ -34,8 +34,8 @@ cannon_left = CannonLeft(background, barrel_left)
 barrel_right = BarrelRight(screen)
 cannon_right = CannonRight(background, barrel_right)
 
-player_0 = Player(cannon_left)
-player_1 = Player(cannon_right)
+player_0 = Player(1, cannon_left)
+player_1 = Player(2, cannon_right)
 active_player = player_0
 sleeping_player = player_1
 
@@ -70,6 +70,7 @@ while running:
         if sleeping_player.cannon.is_in_hit_box(cannonball):
             cannonball.explode()
             cannonball = None  # Remove the cannonball on hit
+            active_player.show_winner_popup(screen)
         elif hill.is_in_hit_box(cannonball):
             cannonball.explode()
             cannonball = None  # Remove the cannonball on hit

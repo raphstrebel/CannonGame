@@ -5,6 +5,7 @@ class Color:
     RED = (255, 100, 0)
     BLUE = (135, 206, 250)
     GREEN = (0, 128, 0)
+    BLACK = (0, 0, 0, 180)  # Black with transparency
 
 class Dimensions:
 
