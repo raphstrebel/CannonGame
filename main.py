@@ -14,20 +14,8 @@ from src.obstacle import Obstacle
 # Set window position to the top of the screen (x=0, y=0)
 os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
 pygame.init()
-# screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
-# screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 info = pygame.display.Info()
 Dimensions.set_dimensions(info.current_w, info.current_h)
-# # dims = Dimensions(info.current_w, info.current_h)
-# Dimensions.DISPLAY_WIDTH = info.current_w
-# Dimensions.DISPLAY_HEIGHT = info.current_h * 0.88  # stop screen above menu bar
-# Dimensions.SKY_Y = Dimensions.DISPLAY_HEIGHT * 0.6
-# Dimensions.GRASS_Y = Dimensions.DISPLAY_HEIGHT - Dimensions.SKY_Y
-# Dimensions.CANNON_Y = Dimensions.SKY_Y - 25
-# Dimensions.BARREL_Y = Dimensions.CANNON_Y - 5
-# # DISPLAY_WIDTH, DISPLAY_HEIGHT = info.current_w, info.current_h
-# # SKY_Y = DISPLAY_HEIGHT * 0.6
-# # GRASS_Y = DISPLAY_HEIGHT - SKY_Y
 screen = pygame.display.set_mode((Dimensions.DISPLAY_WIDTH, Dimensions.DISPLAY_HEIGHT), pygame.NOFRAME)
 
 
