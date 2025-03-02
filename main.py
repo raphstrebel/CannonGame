@@ -7,7 +7,7 @@ from src.cannon import CannonLeft, CannonRight
 from src.barrel import BarrelLeft, BarrelRight
 from src.cannonball import CannonBall
 from src.player import Player
-from src.obstacle import Obstacle
+from src.hill import Hill
 
 
 # Initialize Pygame
@@ -39,7 +39,7 @@ player_1 = Player(cannon_right)
 active_player = player_0
 sleeping_player = player_1
 
-hill = Obstacle(background)
+hill = Hill(background)
 
 # Draw static elements on the background
 hill.draw()

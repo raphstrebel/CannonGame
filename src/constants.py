@@ -7,28 +7,26 @@ class Color:
     GREEN = (0, 128, 0)
 
 class Dimensions:
-    DISPLAY_WIDTH = 0
-    DISPLAY_HEIGHT = 0
-    SKY_Y = 0
-    GRASS_Y = 0
-    CANNON_Y = 0
-    BARREL_Y = 0
 
     def set_dimensions(width: int, height: int):
         """Set the dimensions given the screen info"""
 
         # Screen
-        Dimensions.DISPLAY_WIDTH = width
-        Dimensions.DISPLAY_HEIGHT = height * 0.88  # stop screen above menu bar
+        Dimensions.DISPLAY_WIDTH = int(width)
+        Dimensions.DISPLAY_HEIGHT = int(height * 0.88)  # stop screen above menu bar
 
         # Background
-        Dimensions.SKY_Y = Dimensions.DISPLAY_HEIGHT * 0.6
+        Dimensions.SKY_Y = int(Dimensions.DISPLAY_HEIGHT * 0.6)
         Dimensions.GRASS_Y = Dimensions.DISPLAY_HEIGHT - Dimensions.SKY_Y
+
+        # Hill
+        Dimensions.OBSTACLE_Y = Dimensions.SKY_Y
+        Dimensions.HILL_HEIGHT_MIN = Dimensions.OBSTACLE_Y + 20
+        Dimensions.HILL_HEIGHT_MAX = Dimensions.DISPLAY_HEIGHT + 100
 
         # Cannon
         Dimensions.CANNON_Y = Dimensions.SKY_Y - 25
         Dimensions.BARREL_Y = Dimensions.CANNON_Y - 5
-        Dimensions.BARELL_LENGTH = 100
 
         # Left Cannon
         Dimensions.CANNON_LEFT_X = 100
