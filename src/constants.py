@@ -23,11 +23,6 @@ class Dimensions:
         # Background
         Dimensions.SKY_Y = int(Dimensions.DISPLAY_HEIGHT * 0.6)
 
-        # Hill
-        Dimensions.OBSTACLE_Y = Dimensions.SKY_Y
-        Dimensions.HILL_HEIGHT_MIN = Dimensions.OBSTACLE_Y + 20
-        Dimensions.HILL_HEIGHT_MAX = Dimensions.DISPLAY_HEIGHT + 100
-
         # Cannon
         Dimensions.CANNON_Y = Dimensions.SKY_Y - 25
         Dimensions.BARREL_Y = Dimensions.CANNON_Y - 5
@@ -39,3 +34,12 @@ class Dimensions:
         # Right Cannon
         Dimensions.CANNON_RIGHT_X = Dimensions.DISPLAY_WIDTH - 100
         Dimensions.BARREL_RIGHT_X = Dimensions.CANNON_RIGHT_X + 5
+
+        # Hill
+        Dimensions.OBSTACLE_Y = Dimensions.SKY_Y
+        Dimensions.HILL_HEIGHT_MIN = Dimensions.OBSTACLE_Y + 20
+        Dimensions.HILL_HEIGHT_MAX = Dimensions.DISPLAY_HEIGHT + 100
+        Dimensions.HILL_WIDTH_MIN_LEFT = Dimensions.CANNON_LEFT_X + 10
+        Dimensions.HILL_WIDTH_MAX_LEFT = Dimensions.DISPLAY_WIDTH // 3
+        Dimensions.HILL_WIDTH_MIN_RIGHT = (2 * Dimensions.DISPLAY_WIDTH) // 3
+        Dimensions.HILL_WIDTH_MAX_RIGHT = Dimensions.CANNON_RIGHT_X - 10

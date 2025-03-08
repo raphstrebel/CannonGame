@@ -13,19 +13,20 @@ class Hill:
     def __init__(self, background: Surface):
         """Create a hill-like obstacle between two cannons."""
         self.screen = background
-        self.x_start = int(Dimensions.DISPLAY_WIDTH // 3)
-        self.x_end = int(2 * Dimensions.DISPLAY_WIDTH // 3)
+        # Random hill left X and right X
+        self.x_start = random.randint(Dimensions.HILL_WIDTH_MIN_LEFT, Dimensions.HILL_WIDTH_MAX_LEFT)
+        self.x_end = random.randint(Dimensions.HILL_WIDTH_MIN_RIGHT, Dimensions.HILL_WIDTH_MAX_RIGHT)
+        # Random peak height
+        self.peak_y = random.randint(Dimensions.HILL_HEIGHT_MIN, Dimensions.HILL_HEIGHT_MAX)
         self.generate_hill()
 
     def generate_hill(self):
         """Generate a smooth hill using sine waves and randomness."""
-        # Random peak height
-        self.peak_y = random.randint(Dimensions.HILL_HEIGHT_MIN, Dimensions.HILL_HEIGHT_MAX)
 
         width = self.x_end - self.x_start
 
         points = []
-        for x in range(self.x_start, self.x_end+5, 5):
+        for x in range(self.x_start, self.x_end + 5, 5):
             norm_x = (x - self.x_start) / width * math.pi  # Normalize x to π range
             y_offset = math.sin(norm_x) * (self.peak_y - Dimensions.HILL_HEIGHT_MIN)  # Smooth curve
             y = Dimensions.OBSTACLE_Y - y_offset  # Place above ground
