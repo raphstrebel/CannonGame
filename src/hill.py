@@ -1,6 +1,8 @@
 import math
-import pygame
 import random
+
+import pygame
+from pygame import Surface
 
 from src.constants import Color, Dimensions
 from src.cannonball import CannonBall
@@ -8,12 +10,12 @@ from src.cannonball import CannonBall
 
 class Hill:
 
-    def __init__(self, screen):
+    def __init__(self, background: Surface):
         """Create a hill-like obstacle between two cannons."""
-        self.screen = screen
+        self.screen = background
         self.x_start = int(Dimensions.DISPLAY_WIDTH // 3)
         self.x_end = int(2 * Dimensions.DISPLAY_WIDTH // 3)
-        self.points = self.generate_hill()
+        self.generate_hill()
 
     def generate_hill(self):
         """Generate a smooth hill using sine waves and randomness."""
@@ -28,7 +30,7 @@ class Hill:
             y_offset = math.sin(norm_x) * (self.peak_y - Dimensions.HILL_HEIGHT_MIN)  # Smooth curve
             y = Dimensions.OBSTACLE_Y - y_offset  # Place above ground
             points.append((x, int(y)))
-        return points
+        self.points = points
 
     def is_in_hit_box(self, cannonball: CannonBall):
         """Return True if the given (x, y) position touches the hill."""

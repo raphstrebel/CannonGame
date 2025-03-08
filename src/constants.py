@@ -7,6 +7,10 @@ class Color:
     GREEN = (0, 128, 0)
     BLACK = (0, 0, 0, 180)  # Black with transparency
 
+class Direction:
+    LEFT = 'left'
+    RIGHT = 'right'
+
 class Dimensions:
 
     def set_dimensions(width: int, height: int):
